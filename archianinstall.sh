@@ -42,28 +42,20 @@ echo 'Server = https://github.com/ArchianOS/archianos-repo/raw/main/x86_64/' >> 
 check_status "Failed to update pacman.conf."
 
 # Rename OS in bootloader
-if [ -d "/boot/grub" ]; then
-    echo "GRUB detected."
+if [ -d "$MOUNT_POINT/boot/grub" ]; then
 
     # Rename the Arch Linux entry in GRUB
-    sudo sed -i 's/Arch Linux/ArchianOS/g' /boot/grub/grub.cfg
+    sudo sed -i 's/Arch Linux/ArchianOS/g' $MOUNT_POINT/boot/grub/grub.cfg
 
-    echo "Renamed 'Arch Linux' to 'ArchianOS' in GRUB configuration."
-
-elif [ -d "/boot/loader" ]; then
-    echo "systemd-boot detected."
+elif [ -d "$MOUNT_POINT/boot/loader" ]; then
 
     # Rename the Arch Linux entry in systemd-boot
-    for file in /boot/loader/entries/*.conf; do
+    for file in $MOUNT_POINT/boot/loader/entries/*.conf; do
         if grep -q "Arch Linux" "$file"; then
             sudo sed -i 's/Arch Linux/ArchianOS/g' "$file"
-            echo "Renamed 'Arch Linux' to 'ArchianOS' in $file."
         fi
     done
 
-else
-    echo "Neither GRUB nor systemd-boot detected. Exiting."
-    exit 1
 fi
 
 # Done
