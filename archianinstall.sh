@@ -2,7 +2,7 @@
 
 # Define variables for paths and files
 ARCHINSTALL_CMD="archinstall"
-MOUNT_POINT="/mnt"
+MOUNT_POINT="/mnt/archinstall"
 
 # Function to check the exit status of the previous command
 check_status() {
@@ -36,9 +36,9 @@ EOF
 check_status "Failed to create os-release."
 
 # Append custom repository to pacman.conf in the new system
-arch-chroot "$MOUNT_POINT" bash -c "echo '[archianos]' >> /etc/pacman.conf"
-arch-chroot "$MOUNT_POINT" bash -c "echo 'SigLevel = Optional TrustAll' >> /etc/pacman.conf"
-arch-chroot "$MOUNT_POINT" bash -c "echo 'Server = https://github.com/ArchianOS/archianos-repo/raw/main/x86_64/' >> /etc/pacman.conf"
+echo '[archianos]' >> $MOUNT_POINT/etc/pacman.conf
+echo 'SigLevel = Optional TrustAll' >> $MOUNT_POINT/etc/pacman.conf
+echo 'Server = https://github.com/ArchianOS/archianos-repo/raw/main/x86_64/' >> $MOUNT_POINT/etc/pacman.conf
 check_status "Failed to update pacman.conf."
 
 # Done
