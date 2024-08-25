@@ -3,7 +3,6 @@
 # Define variables for paths and files
 ARCHINSTALL_CMD="archinstall"
 MOUNT_POINT="/mnt"
-OS_RELEASE_SOURCE="os-release"
 
 # Function to check the exit status of the previous command
 check_status() {
@@ -24,11 +23,19 @@ if [ ! -d "$MOUNT_POINT" ]; then
     exit 1
 fi
 
-# Copy custom os-release file to the new system
-cp "$OS_RELEASE_SOURCE" "$MOUNT_POINT/etc/os-release"
-check_status "Failed to copy os-release."
+# Create and write the custom os-release file to the new system
+cat <<EOF > "$MOUNT_POINT/etc/os-release"
+NAME="ArchianOS"
+PRETTY_NAME="ArchianOS"
+ID=arch
+VERSION_ID="2024.08.01"
+HOME_URL="https://www.archianos.org/"
+SUPPORT_URL="https://archianos.org/"
+BUG_REPORT_URL="https://archianos.org/"
+EOF
+check_status "Failed to create os-release."
 
-# Append custom repository to pacman.conf
+# Append custom repository to pacman.conf in the new system
 arch-chroot "$MOUNT_POINT" bash -c "echo '[archianos]' >> /etc/pacman.conf"
 arch-chroot "$MOUNT_POINT" bash -c "echo 'SigLevel = Optional TrustAll' >> /etc/pacman.conf"
 arch-chroot "$MOUNT_POINT" bash -c "echo 'Server = https://github.com/ArchianOS/archianos-repo/raw/main/x86_64/' >> /etc/pacman.conf"
