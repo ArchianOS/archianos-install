@@ -1,6 +1,6 @@
 # Maintainer: Ondřej Šmehlík <ondra.smehlik@gmail.com>
 pkgname=archianinstall
-pkgver=1.2
+pkgver=1.3
 pkgrel=1
 pkgdesc="Install script for ArchianOS."
 arch=('any')

@@ -28,7 +28,6 @@ cat <<EOF > "$MOUNT_POINT/etc/os-release"
 NAME="ArchianOS"
 PRETTY_NAME="ArchianOS"
 ID=arch
-VERSION_ID="2024.08.01"
 HOME_URL="https://www.archianos.org/"
 SUPPORT_URL="https://archianos.org/"
 BUG_REPORT_URL="https://archianos.org/"
