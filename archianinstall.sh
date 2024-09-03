@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Define variables for paths and files
-ARCHINSTALL_CMD="archinstall"
-MOUNT_POINT="/mnt/archinstall"
+ARCHINSTALL_CMD='archinstall --hostname "archianos"'
+MOUNT_POINT='/mnt/archinstall'
 
 # Function to check the exit status of the previous command
 check_status() {
@@ -13,7 +13,6 @@ check_status() {
 }
 
 # Run the archinstall script
-echo "Running archinstall..."
 $ARCHINSTALL_CMD
 check_status "Arch installation failed."
 
